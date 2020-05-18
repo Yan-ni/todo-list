@@ -1,38 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #0ec3db;
+  min-height: 100vh;
+}
+
+.title {
+  padding: 10px 0;
+  text-align: center;
+  font-weight: 500;
+  background-color: #0ec3db;
+  width: 100%;
+  height: 100%;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.15);
+}
+
+form {
+  padding: 20px 30px 30px 30px;
+  width: 100%;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: sticky;
+  bottom: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.List {
+  width: 100%;
+  flex: 1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.List li {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  display: flex;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.List li:hover {
+  cursor: pointer;
+}
+
+.done {
+  color: #155724;
+  background-color: #92d3a0;
+  text-decoration: line-through;
+}
+
+.done:hover {
+  background-color: #82ca91;
+}
+
+.todo {
+  background-color: #fff;
+}
+
+.todo:hover {
+  background-color: #eee;
+}
+
+.List li p {
+  padding: 0.75rem 1.25rem;
+  flex: 1;
+}
+
+.Delete {
+  padding: 0.75rem 1.25rem;
+}
+
+.Delete img {
+  width: 20px;
+  height: 20px;
+  padding-top: 5px;
+}
+
+.Add img {
+  width: 25px;
+  height: 25px;
+}
+
+form input {
+  width: 105px;
+  height: 35px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  border: 1px #aaa solid;
+  padding: 0.375rem 0.75rem;
+  border-radius: 16px;
+  outline: none;
+  transition: all ease 0.5s;
+  transition-delay: 100ms;
+}
+
+form input:focus {
+  width: 690px;
+  height: 40px;
+  transition: all ease 0.5s;
+  padding-right: 50px;
+}
+
+form input:focus ~ .Add {
+  visibility: visible;
+  transition: all ease 0.5s;
+}
+
+.Add {
+  position: relative;
+  right: 35px;
+  top: 1px;
+  background: none;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  outline: none;
+  visibility: hidden;
+  transition-delay: 100ms;
+}
+
+.Add:hover {
+  cursor: pointer;
 }
