@@ -19,6 +19,7 @@ export default function App() {
   };
 
   const addTodo = (text) => {
+    text = text.trim();
     if (text !== "") {
       const tmpList = TodoList;
       tmpList.push(new todoItem(text));
