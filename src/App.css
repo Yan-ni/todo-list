@@ -14,7 +14,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #0ec3db;
+  background-image: linear-gradient(120deg, #f6d365, #fda085);
   min-height: 100vh;
 }
 
@@ -22,7 +22,6 @@ body {
   padding: 10px 0;
   text-align: center;
   font-weight: 500;
-  background-color: #0ec3db;
   width: 100%;
   height: 100%;
   position: sticky;
@@ -79,6 +78,12 @@ form {
   flex: 1;
 }
 
+.List li span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .Delete {
   padding: 0.75rem 1.25rem;
 }
@@ -86,7 +91,7 @@ form {
 .Delete img {
   width: 20px;
   height: 20px;
-  padding-top: 5px;
+  padding: 2.5px;
 }
 
 .Add img {

@@ -18,9 +18,18 @@ export default function App() {
     localStorage.setItem("List", JSON.stringify(TodoList));
   };
 
+  const checkForLongWords = (text) => {
+    let longWord = false;
+    text.split(" ").map((i) => {
+      if (i.length >= 20) longWord = true;
+      return i;
+    });
+    return longWord;
+  };
+
   const addTodo = (text) => {
     text = text.trim();
-    if (text !== "") {
+    if (text !== "" && !checkForLongWords(text)) {
       const tmpList = TodoList;
       tmpList.push(new todoItem(text));
       setTodoList(tmpList);
