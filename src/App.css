@@ -31,11 +31,12 @@ body {
 }
 
 .Welcome-message {
-  color: #454545;
+  color: #fefefe;
   font-size: 2rem;
   text-align: center;
   align-self: center;
   margin: auto;
+  padding: 20px;
 }
 
 form {
@@ -80,7 +81,7 @@ form {
 }
 
 .todo {
-  background-color: #f8dd37;
+  background-color: #fac515;
 }
 
 .todo:hover {
