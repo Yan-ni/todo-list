@@ -14,7 +14,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: linear-gradient(120deg, #f6d365, #fda085);
+  background-image: linear-gradient(120deg, #314755, #26a0da);
   min-height: 100vh;
 }
 
@@ -80,11 +80,11 @@ form {
 }
 
 .todo {
-  background-color: #fff;
+  background-color: #f8dd37;
 }
 
 .todo:hover {
-  background-color: #eee;
+  background-color: #b3a028;
 }
 
 .List li p {
