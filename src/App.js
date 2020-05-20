@@ -4,6 +4,7 @@ import "./App.css";
 import todoItem from "./todoItem";
 import add from "./assets/add.svg";
 import remove from "./assets/remove.svg";
+import clear from "./assets/clear.svg";
 
 export default function App() {
   const [TodoList, setTodoList] = useState([]);
@@ -56,23 +57,44 @@ export default function App() {
     localStorage.setItem("List", JSON.stringify(tmpList));
   };
 
+  const clearTodoList = () => {
+    if (window.confirm("Are you sure you want to clear all the list ?")) {
+      setTodoList([]);
+      localStorage.removeItem("List");
+    }
+  };
+
   return (
     <div className="App">
-      <h1 className="title">Todo List</h1>
+      <h1 className="title">
+        Todo List{" "}
+        <span className="Clear" onClick={() => clearTodoList()}>
+          <img src={clear} alt="clear" />
+        </span>
+      </h1>
       <ul className="List">
-        {TodoList.map((i) => (
-          <li key={i.id} className={i.done ? "ListItem done" : "ListItem todo"}>
-            <p onClick={() => toggleDone(i.id)}>{i.content}</p>
-            <span
-              className="Delete"
-              onClick={() => {
-                deleteTodo(i.id);
-              }}
+        {TodoList.length ? (
+          TodoList.map((i) => (
+            <li
+              key={i.id}
+              className={i.done ? "ListItem done" : "ListItem todo"}
             >
-              <img src={remove} alt="remove" />
-            </span>
-          </li>
-        ))}
+              <p onClick={() => toggleDone(i.id)}>{i.content}</p>
+              <span
+                className="Delete"
+                onClick={() => {
+                  deleteTodo(i.id);
+                }}
+              >
+                <img src={remove} alt="remove" />
+              </span>
+            </li>
+          ))
+        ) : (
+          <span className="Welcome-message">
+            C'mon add some todo's and call it a productive day !
+          </span>
+        )}
       </ul>
       <form
         onSubmit={(e) => {
