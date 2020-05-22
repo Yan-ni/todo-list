@@ -1,21 +1,39 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import "./App.min.css";
 
 import todoItem from "./todoItem";
-import add from "./assets/add.svg";
-import remove from "./assets/remove.svg";
-import clear from "./assets/clear.svg";
+import Header from "./Components/Header";
+import List from "./Components/List";
+import AddTodoInput from "./Components/AddTodoInput";
+import Settings from "./Components/Settings";
+
+import defaultColors from "./defaultColors.json";
 
 export default function App() {
   const [TodoList, setTodoList] = useState([]);
   const [InputField, setInputField] = useState("");
+  const [ColorSettings, setColorSettings] = useState(
+    localStorage.getItem("Colors")
+      ? JSON.parse(localStorage.getItem("Colors"))
+      : defaultColors
+  );
+  const [ShowSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
+    console.log(ColorSettings);
+    applyColors(ColorSettings);
+
     const List = localStorage.getItem("List");
     if (List !== null) setTodoList(JSON.parse(List));
   }, []);
 
-  const updateLocalStorage = () => {
+  const applyColors = (colors) => {
+    document.querySelector(
+      ".App"
+    ).style.background = `linear-gradient(120deg, ${colors.background[0]}, ${colors.background[1]}`;
+  };
+
+  const updateLocalStorageList = () => {
     localStorage.setItem("List", JSON.stringify(TodoList));
   };
 
@@ -28,17 +46,6 @@ export default function App() {
     return longWord;
   };
 
-  const addTodo = (text) => {
-    text = text.trim();
-    if (text !== "" && !checkForLongWords(text)) {
-      const tmpList = TodoList;
-      tmpList.push(new todoItem(text));
-      setTodoList(tmpList);
-    }
-    updateLocalStorage();
-    setInputField("");
-  };
-
   const toggleDone = (key) => {
     setTodoList(
       TodoList.map((i) => {
@@ -48,7 +55,7 @@ export default function App() {
         return i;
       })
     );
-    updateLocalStorage();
+    updateLocalStorageList();
   };
 
   const deleteTodo = (key) => {
@@ -64,60 +71,45 @@ export default function App() {
     }
   };
 
+  const addTodo = (text) => {
+    text = text.trim();
+    if (text !== "" && !checkForLongWords(text)) {
+      const tmpList = TodoList;
+      tmpList.push(new todoItem(text));
+      setTodoList(tmpList);
+    }
+    updateLocalStorageList();
+    setInputField("");
+  };
+
   return (
     <div className="App">
-      <h1 className="title">
-        Todo List{" "}
-        <span className="Clear" onClick={() => clearTodoList()}>
-          <img src={clear} alt="clear" />
-        </span>
-      </h1>
-      <ul className="List">
-        {TodoList.length ? (
-          TodoList.map((i) => (
-            <li
-              key={i.id}
-              className={i.done ? "ListItem done" : "ListItem todo"}
-            >
-              <p onClick={() => toggleDone(i.id)}>{i.content}</p>
-              <span
-                className="Delete"
-                onClick={() => {
-                  deleteTodo(i.id);
-                }}
-              >
-                <img src={remove} alt="remove" />
-              </span>
-            </li>
-          ))
-        ) : (
-          <span className="Welcome-message">
-            C'mon add some todo's and call it a productive day !
-          </span>
-        )}
-      </ul>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          addTodo(InputField);
+      <Header
+        unhideSettings={() => setShowSettings(true)}
+        clearTodoList={clearTodoList}
+      />
+      <List
+        TodoList={TodoList}
+        toggleDone={(key) => toggleDone(key)}
+        deleteTodo={(key) => deleteTodo(key)}
+        colors={ColorSettings}
+      />
+      <AddTodoInput
+        addTodo={(text) => addTodo(text)}
+        InputField={InputField}
+        setInputField={(text) => setInputField(text)}
+      />
+      <Settings
+        ShowSettings={ShowSettings}
+        hideSettings={() => setShowSettings(false)}
+        ColorSettings={ColorSettings}
+        setColorSettings={(colors) => {
+          setColorSettings(colors);
+          applyColors(colors);
+          console.log(ColorSettings);
+          localStorage.setItem("Colors", JSON.stringify(colors));
         }}
-      >
-        <input
-          type="text"
-          placeholder="Add a todo"
-          value={InputField}
-          onChange={(e) => setInputField(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="Add"
-          onClick={() => addTodo(InputField)}
-        >
-          <span>
-            <img src={add} alt="add" />
-          </span>
-        </button>
-      </form>
+      />
     </div>
   );
 }

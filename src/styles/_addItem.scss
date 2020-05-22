@@ -1,0 +1,51 @@
+.addItem {
+  padding: 20px 30px 30px 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  bottom: 0;
+
+  input {
+    width: 105px;
+    height: 35px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    border: 1px #aaa solid;
+    padding: 0.375rem 0.75rem;
+    border-radius: 16px;
+    outline: none;
+    transition: all ease 0.5s;
+    transition-delay: 100ms;
+    &:focus {
+      width: 690px;
+      height: 40px;
+      transition: all ease 0.5s;
+      padding-right: 50px;
+    }
+    &:focus ~ .add-btn {
+      visibility: visible;
+      transition: all ease 0.5s;
+    }
+  }
+
+  .add-btn {
+    position: relative;
+    right: 35px;
+    top: 1px;
+    background: none;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+    outline: none;
+    visibility: hidden;
+    transition-delay: 100ms;
+    &:hover {
+      cursor: pointer;
+    }
+    img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
