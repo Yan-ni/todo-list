@@ -18,9 +18,11 @@ export default function App() {
       : defaultColors
   );
   const [ShowSettings, setShowSettings] = useState(false);
+  const [TodosShape, setTodosShape] = useState(
+    localStorage.getItem("shape") ? localStorage.getItem("shape") : "squared"
+  );
 
   useEffect(() => {
-    console.log(ColorSettings);
     applyColors(ColorSettings);
 
     const List = localStorage.getItem("List");
@@ -93,6 +95,7 @@ export default function App() {
         toggleDone={(key) => toggleDone(key)}
         deleteTodo={(key) => deleteTodo(key)}
         colors={ColorSettings}
+        shape={TodosShape}
       />
       <AddTodoInput
         addTodo={(text) => addTodo(text)}
@@ -106,8 +109,12 @@ export default function App() {
         setColorSettings={(colors) => {
           setColorSettings(colors);
           applyColors(colors);
-          console.log(ColorSettings);
           localStorage.setItem("Colors", JSON.stringify(colors));
+        }}
+        shape={TodosShape}
+        setShape={(shape) => {
+          setTodosShape(shape);
+          localStorage.setItem("shape", shape);
         }}
       />
     </div>

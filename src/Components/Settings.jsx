@@ -11,6 +11,8 @@ export default function Settings(props) {
   );
   const [TodoItemC1, setTodoItemC1] = useState(props.ColorSettings.todoItem[0]);
   const [TodoItemC2, setTodoItemC2] = useState(props.ColorSettings.todoItem[1]);
+  const [Shape, setShape] = useState(props.shape);
+
   return (
     <div
       className="modal-bg"
@@ -26,6 +28,8 @@ export default function Settings(props) {
                 background: [BackgroundC1, BackgroundC2],
                 todoItem: [TodoItemC1, TodoItemC2],
               });
+              props.setShape(Shape);
+              props.hideSettings();
             }}
           >
             <h3>Theme</h3>
@@ -67,19 +71,50 @@ export default function Settings(props) {
                 onChange={(e) => setTodoItemC2(e.target.value)}
               />
             </div>
+            <div className="todos-shape">
+              <label htmlFor="todos-shape">todo's shape</label>
+              <div className="input-container">
+                <div className="radio-input">
+                  <input
+                    type="radio"
+                    name="shape"
+                    id="squared"
+                    value="squared"
+                    checked={Shape === "squared" ? "checked" : ""}
+                    onChange={(e) => setShape(e.target.value)}
+                  />
+                  <label htmlFor="squared">squared</label>
+                </div>
+                <div className="radio-input">
+                  <input
+                    type="radio"
+                    name="shape"
+                    id="rounded"
+                    value="rounded"
+                    checked={Shape === "rounded" ? "checked" : ""}
+                    onChange={(e) => setShape(e.target.value)}
+                  />
+                  <label htmlFor="rounded">rounded</label>
+                </div>
+              </div>
+            </div>
             <div className="buttons-container">
               <button
+                type="reset"
                 onClick={() => {
                   setBackgroundC1(defaultColors.background[0]);
                   setBackgroundC2(defaultColors.background[1]);
                   setTodoItemC1(defaultColors.todoItem[0]);
                   setTodoItemC2(defaultColors.todoItem[1]);
+                  setShape("squared");
                 }}
               >
                 Reset
               </button>
               <div className="main-buttons">
-                <button onClick={() => props.hideSettings()}>Cancel</button>
+                <button type="button" onClick={() => props.hideSettings()}>
+                  Cancel
+                </button>
                 <button type="submit">Save</button>
               </div>
             </div>
