@@ -12,68 +12,66 @@
     transform: translate(0, -30%);
     border-radius: 10px;
 
-    .container {
-      margin: 20px;
+    padding: 20px;
 
-      .settings-title {
-        padding: 0 0 20px 0;
-        text-align: center;
+    .settings-title {
+      padding: 0 0 20px 0;
+      text-align: center;
+    }
+
+    .todos-shape {
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      legend {
+        margin-left: 20px;
       }
-
-      .todos-shape {
-        margin: 10px 0;
-        display: flex;
-        justify-content: space-between;
-        label[for="todos-shape"] {
-          margin-left: 20px;
-        }
-        .radio-input {
-          margin-right: 50px;
-          label {
-            font-size: 0.85rem;
-          }
-          input {
-            margin: 0 5px;
-          }
-        }
-      }
-
-      .color-input {
-        display: flex;
-        align-items: center;
-        margin: 10px 0;
+      .radio-input {
+        margin-right: 50px;
         label {
-          margin: 0 20px 0 20px;
-          width: 100px;
+          font-size: 0.85rem;
         }
-
         input {
-          margin: 0 10px;
-          background-color: inherit;
-          border: none;
-          outline: none;
-          width: 50px;
-          height: 35px;
+          margin: 0 5px;
         }
       }
-      .buttons-container {
-        display: flex;
-        justify-content: space-between;
-        margin: 20px 0 0 0;
+    }
 
-        button {
-          background-color: inherit;
-          border: none;
-          outline: none;
-          font-size: 1rem;
-          font-weight: bold;
-          color: #329cc0;
-          cursor: pointer;
-        }
-        .main-buttons {
-          button[type="submit"] {
-            margin-left: 20px;
-          }
+    .color-input {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      legend {
+        margin: 0 20px 0 20px;
+        width: 100px;
+      }
+
+      input {
+        margin: 0 10px;
+        background-color: inherit;
+        border: none;
+        outline: none;
+        width: 50px;
+        height: 35px;
+      }
+    }
+    .buttons-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0 0 0;
+
+      button {
+        background-color: inherit;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #329cc0;
+        cursor: pointer;
+      }
+      .main-buttons {
+        button[type="submit"] {
+          margin-left: 20px;
         }
       }
     }
