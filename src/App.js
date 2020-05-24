@@ -17,7 +17,7 @@ export default function App() {
       ? JSON.parse(localStorage.getItem("Colors"))
       : defaultColors
   );
-  const [ShowSettings, setShowSettings] = useState(true); //!TEMPORARY
+  const [ShowSettings, setShowSettings] = useState(false);
   const [TodosShape, setTodosShape] = useState(
     localStorage.getItem("shape") ? localStorage.getItem("shape") : "squared"
   );
