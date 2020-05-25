@@ -11,13 +11,10 @@ export default function List(props) {
             key={i.id}
             className={i.done ? "list-item done" : "list-item"}
             style={{
-              backgroundColor: i.done
-                ? props.colors.todoItem[1]
-                : props.colors.todoItem[0],
+              backgroundColor: i.done ? props.colors[1] : props.colors[0],
               borderRadius: props.shape === "rounded" ? "26px" : 0,
               marginBottom: props.shape === "rounded" ? "5px" : 0,
             }}
-            // style={ ? { borderRadius: "16px" } : {}}
           >
             <p onClick={() => props.toggleDone(i.id)}>{i.content}</p>
             <span

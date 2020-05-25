@@ -6,7 +6,7 @@ import settings from "../assets/settings.svg";
 export default function Header(props) {
   return (
     <header>
-      <span className="settings" onClick={() => props.unhideSettings()}>
+      <span className="settings" onClick={() => props.showSettings()}>
         <img src={settings} alt="settings" />
       </span>
       <h1 className="title">Todo List</h1>

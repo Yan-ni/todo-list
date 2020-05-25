@@ -6,25 +6,15 @@ import List from "../Components/List";
 import AddTodoInput from "../Components/AddTodoInput";
 import Settings from "../Components/Settings";
 
-import defaultColors from "../defaultColors.json";
-import TodoListStore from "../Store/TodoListStore";
-
-function Main() {
+function Main({ TodoListStore, SettingsStore }) {
   const [InputField, setInputField] = useState("");
-  const [ColorSettings, setColorSettings] = useState(
-    localStorage.getItem("Colors")
-      ? JSON.parse(localStorage.getItem("Colors"))
-      : defaultColors
-  );
-  const [ShowSettings, setShowSettings] = useState(false);
-  const [TodosShape, setTodosShape] = useState(
-    localStorage.getItem("shape") ? localStorage.getItem("shape") : "squared"
-  );
 
   useEffect(() => {
-    applyColors(ColorSettings);
     TodoListStore.loadList();
-  }, [ColorSettings]);
+    SettingsStore.loadSettings();
+
+    applyColors(SettingsStore.Settings.Colors);
+  }, [TodoListStore, SettingsStore]);
 
   const applyColors = (colors) => {
     document.querySelector(
@@ -35,15 +25,15 @@ function Main() {
   return (
     <div className="App">
       <Header
-        unhideSettings={() => setShowSettings(true)}
+        showSettings={() => SettingsStore.showSettings()}
         clearTodoList={() => TodoListStore.clearList()}
       />
       <List
         TodoList={TodoListStore.List}
         toggleDone={(key) => TodoListStore.toggleItemDone(key)}
         deleteTodo={(key) => TodoListStore.removeItem(key)}
-        colors={ColorSettings}
-        shape={TodosShape}
+        colors={SettingsStore.Settings.Colors.todoItem}
+        shape={SettingsStore.Settings.Shape}
       />
       <AddTodoInput
         addTodo={(text) => {
@@ -54,22 +44,14 @@ function Main() {
         setInputField={(text) => setInputField(text)}
       />
       <Settings
-        ShowSettings={ShowSettings}
-        hideSettings={() => setShowSettings(false)}
-        ColorSettings={ColorSettings}
-        setColorSettings={(colors) => {
-          setColorSettings(colors);
-          applyColors(colors);
-          localStorage.setItem("Colors", JSON.stringify(colors));
-        }}
-        shape={TodosShape}
-        setShape={(shape) => {
-          setTodosShape(shape);
-          localStorage.setItem("shape", shape);
-        }}
+        Colors={SettingsStore.Settings.Colors}
+        Shape={SettingsStore.Settings.Shape}
+        SettingsShown={SettingsStore.Shown}
+        hideSettings={() => SettingsStore.hideSettings()}
+        updateSettings={(sets) => SettingsStore.updateSettings(sets)}
       />
     </div>
   );
 }
 
-export default inject("TodoListStore")(observer(Main));
+export default inject("TodoListStore", "SettingsStore")(observer(Main));

@@ -1,0 +1,7 @@
+{
+  "Colors": {
+    "background": ["#314755", "#26a0da"],
+    "todoItem": ["#fac515", "#92d3a0"]
+  },
+  "Shape": "squared"
+}

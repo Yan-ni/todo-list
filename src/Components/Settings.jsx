@@ -1,34 +1,46 @@
 import React, { useState } from "react";
 
-import defaultColors from "../defaultColors.json";
+import defaultSettings from "../Utils/defaultSettings.json";
 
-export default function Settings(props) {
-  const [BackgroundC1, setBackgroundC1] = useState(
-    props.ColorSettings.background[0]
-  );
-  const [BackgroundC2, setBackgroundC2] = useState(
-    props.ColorSettings.background[1]
-  );
-  const [TodoItemC1, setTodoItemC1] = useState(props.ColorSettings.todoItem[0]);
-  const [TodoItemC2, setTodoItemC2] = useState(props.ColorSettings.todoItem[1]);
-  const [Shape, setShape] = useState(props.shape);
+export default function Settings({
+  Colors,
+  Shape,
+  SettingsShown,
+  hideSettings,
+  updateSettings,
+}) {
+  const [BackgroundC1, setBackgroundC1] = useState(Colors.background[0]);
+  const [BackgroundC2, setBackgroundC2] = useState(Colors.background[1]);
+  const [TodoItemC1, setTodoItemC1] = useState(Colors.todoItem[0]);
+  const [TodoItemC2, setTodoItemC2] = useState(Colors.todoItem[1]);
+  const [TodoShape, setTodoShape] = useState(Shape);
+
+  const update = () => {
+    setBackgroundC1(Colors.background[0]);
+    setBackgroundC2(Colors.background[1]);
+    setTodoItemC1(Colors.todoItem[0]);
+    setTodoItemC2(Colors.todoItem[1]);
+    setTodoShape(Shape);
+  };
 
   return (
     <div
       className="modal-bg"
-      style={props.ShowSettings ? { display: "flex" } : { display: "none" }}
+      style={SettingsShown ? { display: "flex" } : { display: "none" }}
     >
       <div className="settings-modal">
         <h3 className="settings-title">Settings</h3>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            props.setColorSettings({
-              background: [BackgroundC1, BackgroundC2],
-              todoItem: [TodoItemC1, TodoItemC2],
+            updateSettings({
+              Colors: {
+                background: [BackgroundC1, BackgroundC2],
+                todoItem: [TodoItemC1, TodoItemC2],
+              },
+              Shape: TodoShape,
             });
-            props.setShape(Shape);
-            props.hideSettings();
+            hideSettings();
           }}
         >
           <h3>Theme</h3>
@@ -71,8 +83,8 @@ export default function Settings(props) {
                   name="shape"
                   id="squared"
                   value="squared"
-                  checked={Shape === "squared" ? "checked" : ""}
-                  onChange={(e) => setShape(e.target.value)}
+                  checked={TodoShape === "squared" ? "checked" : ""}
+                  onChange={(e) => setTodoShape(e.target.value)}
                 />
                 <label htmlFor="squared">squared</label>
               </div>
@@ -82,8 +94,8 @@ export default function Settings(props) {
                   name="shape"
                   id="rounded"
                   value="rounded"
-                  checked={Shape === "rounded" ? "checked" : ""}
-                  onChange={(e) => setShape(e.target.value)}
+                  checked={TodoShape === "rounded" ? "checked" : ""}
+                  onChange={(e) => setTodoShape(e.target.value)}
                 />
                 <label htmlFor="rounded">rounded</label>
               </div>
@@ -93,17 +105,23 @@ export default function Settings(props) {
             <button
               type="reset"
               onClick={() => {
-                setBackgroundC1(defaultColors.background[0]);
-                setBackgroundC2(defaultColors.background[1]);
-                setTodoItemC1(defaultColors.todoItem[0]);
-                setTodoItemC2(defaultColors.todoItem[1]);
-                setShape("squared");
+                setBackgroundC1(defaultSettings.Colors.background[0]);
+                setBackgroundC2(defaultSettings.Colors.background[1]);
+                setTodoItemC1(defaultSettings.Colors.todoItem[0]);
+                setTodoItemC2(defaultSettings.Colors.todoItem[1]);
+                setTodoShape("squared");
               }}
             >
               Reset
             </button>
             <div className="main-buttons">
-              <button type="button" onClick={() => props.hideSettings()}>
+              <button
+                type="button"
+                onClick={() => {
+                  hideSettings();
+                  update();
+                }}
+              >
                 Cancel
               </button>
               <button type="submit">Save</button>
