@@ -49,6 +49,7 @@ function Main({ TodoListStore, SettingsStore }) {
         SettingsShown={SettingsStore.Shown}
         hideSettings={() => SettingsStore.hideSettings()}
         updateSettings={(sets) => SettingsStore.updateSettings(sets)}
+        applyColors={(colors) => applyColors(colors)}
       />
     </div>
   );

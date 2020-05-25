@@ -2,7 +2,10 @@ import defaultSettings from "../Utils/defaultSettings.json";
 import { observable, decorate, action } from "mobx";
 
 class SettingsStore {
-  Settings = defaultSettings;
+  Settings =
+    localStorage.getItem("Settings") !== null
+      ? JSON.parse(localStorage.getItem("Settings"))
+      : defaultSettings;
   Shown = false;
 
   hideSettings() {

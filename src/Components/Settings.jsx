@@ -8,6 +8,7 @@ export default function Settings({
   SettingsShown,
   hideSettings,
   updateSettings,
+  applyColors,
 }) {
   const [BackgroundC1, setBackgroundC1] = useState(Colors.background[0]);
   const [BackgroundC2, setBackgroundC2] = useState(Colors.background[1]);
@@ -33,13 +34,15 @@ export default function Settings({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            updateSettings({
+            const sets = {
               Colors: {
                 background: [BackgroundC1, BackgroundC2],
                 todoItem: [TodoItemC1, TodoItemC2],
               },
               Shape: TodoShape,
-            });
+            };
+            updateSettings(sets);
+            applyColors(sets.Colors);
             hideSettings();
           }}
         >
