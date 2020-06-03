@@ -36,7 +36,7 @@ class TodoListStore {
   }
 
   removeItem(key) {
-    this.list = this.List.filter((i) => i.id !== key);
+    this.List = this.List.filter((i) => i.id !== key);
     this.saveList();
   }
 
